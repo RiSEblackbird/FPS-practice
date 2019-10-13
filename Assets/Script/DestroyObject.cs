@@ -8,6 +8,7 @@ public class DestroyObject : MonoBehaviour
     private GameObject tmpenemy;
     private GameObject enemy;
     public GameObject Explosion;
+    public GameObject Particles;
 
     public int hitPoint = 100;
 
@@ -42,6 +43,10 @@ public class DestroyObject : MonoBehaviour
         {
             Damage(damage);
 
+            Particles.SetActive(true);
+
+            Instantiate(Particles, other.gameObject.transform.position, Quaternion.identity);
+
             Destroy(other.gameObject);
             
         }
@@ -56,6 +61,7 @@ public class DestroyObject : MonoBehaviour
             Explosion.SetActive(true);
 
             Instantiate(Explosion, Explosion.transform.position, Quaternion.identity);
+
         }
     }
 }
