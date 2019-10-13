@@ -19,7 +19,7 @@ public class HP_UI : MonoBehaviour
 
     void Update()
     {
-        hpslider.value = enemy.damage;
+        //hpslider.value = enemy.damage;
         transform.rotation = Camera.main.transform.rotation; // MainCameraに対面する。
     }
 }
