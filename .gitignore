@@ -34,3 +34,13 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Add scripts below after generation myself
+/Assets/*
+!/Assets/Scenes
+
+/Assets/*
+!/Assets/Script
+
+/Assets/*
+!/Assets/Prefab
