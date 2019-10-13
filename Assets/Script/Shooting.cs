@@ -5,6 +5,11 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     public GameObject bulletPrefab;
+    public GameObject Mazzleflash;
+    public GameObject MF;
+    public Vector3 BulletScale;
+    public Vector3 MFScale;
+    public Quaternion MFRotation;
     public float shotSpeed;
     public int shotCount = 200;
     private float shotInterval;
@@ -15,20 +20,36 @@ public class Shooting : MonoBehaviour
         {
             shotInterval += 1;
 
-            if (shotInterval % 10 == 0 && shotCount > 0)
+            if (shotInterval % 2 == 0 && shotCount > 0)
             {
                 shotCount -= 1;
 
-                GameObject bullet = (GameObject)Instantiate(bulletPrefab, transform.position, Quaternion.Euler(transform.parent.eulerAngles.x, transform.parent.eulerAngles.y, 0));
+                Mazzleflash.SetActive(true);
+
+                MF = Instantiate(Mazzleflash, transform.position, transform.rotation);
+                MF.transform.SetParent(gameObject.transform);
+                MF.transform.localScale = MFScale;
+                MF.transform.localRotation = MFRotation;
+
+                GameObject bullet = (GameObject)Instantiate(bulletPrefab, Mazzleflash.transform.position, Mazzleflash.transform.rotation);
+                //bullet.transform.SetParent(gameObject.transform);
+                bullet.transform.localScale = BulletScale;
+                //bullet.transform.localRotation = MFRotation;
+
                 Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
                 bulletRb.AddForce(transform.forward * shotSpeed);
 
-                Destroy(bullet, 10.0f);
+                Destroy(bullet, 5.0f);
+                
             }
+
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
             shotCount = 200;
         }
+
+        Mazzleflash.SetActive(false);
+
     }
 }
