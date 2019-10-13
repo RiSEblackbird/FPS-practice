@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     public UnityEngine.UI.Text scoreLabel;
+    public GameObject Reticle;
     public GameObject winnerLabelObject;
     public GameObject RetryButton;
 
@@ -18,6 +19,7 @@ public class GameController : MonoBehaviour
         if (count == 0) {
             // オブジェクトをアクティブにする
             winnerLabelObject.SetActive(true);
+            Reticle.SetActive(false);
         }
     }
 
