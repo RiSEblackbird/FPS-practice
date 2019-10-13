@@ -5,13 +5,17 @@ using UnityEngine;
 public class DestroyObject : MonoBehaviour
 {
     public int damage;
+    private GameObject tmpenemy;
     private GameObject enemy;
-    private HP hp;
-       
+    public GameObject Explosion;
+
+    public int hitPoint = 100;
+
     void Start()
     {
-        enemy = GameObject.FindWithTag("Enemy");
-        hp = enemy.GetComponent<HP>();
+        tmpenemy = GameObject.FindWithTag("Enemy");
+        name = tmpenemy.name.ToString();
+        enemy = GameObject.Find(name);
     }
 
     /* この場合はこりだーのトリガーにチェック！
@@ -26,14 +30,32 @@ public class DestroyObject : MonoBehaviour
     }
     */
 
+    public void Damage(int damage)
+    {
+        hitPoint -= damage;
+
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Shell"))
         {
-            hp.Damage(damage);
+            Damage(damage);
 
             Destroy(other.gameObject);
             
+        }
+    }
+
+    void Update()
+    {
+        if (hitPoint <= 0)
+        {
+            Destroy(gameObject);
+
+            Explosion.SetActive(true);
+
+            Instantiate(Explosion, Explosion.transform.position, Quaternion.identity);
         }
     }
 }
