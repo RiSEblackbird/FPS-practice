@@ -1,0 +1,176 @@
+{
+  "name": "PlayerControls",
+  "maps": [
+    {
+      "name": "Gameplay",
+      "id": "3b137139-72aa-4784-8797-a82e9657cb07",
+      "actions": [
+        {
+          "name": "Move",
+          "type": "Value",
+          "id": "6204b519-d633-44cb-ad84-f4cd793dcf2a",
+          "expectedControlType": "Vector2",
+          "processors": "",
+          "interactions": ""
+        },
+        {
+          "name": "Fire",
+          "type": "Button",
+          "id": "4508b217-a016-458a-aac7-4f606badf99b",
+          "expectedControlType": "Button",
+          "processors": "",
+          "interactions": ""
+        },
+        {
+          "name": "Reload",
+          "type": "Button",
+          "id": "2dc72cd1-d131-486a-8b06-c380731f1267",
+          "expectedControlType": "Button",
+          "processors": "",
+          "interactions": ""
+        }
+      ],
+      "bindings": [
+        {
+          "name": "WASD",
+          "id": "3cad60d0-cd52-4ac0-a5c8-9e01f4ef0021",
+          "path": "2DVector",
+          "interactions": "",
+          "processors": "",
+          "groups": "Keyboard&Mouse",
+          "action": "Move",
+          "isComposite": true,
+          "isPartOfComposite": false
+        },
+        {
+          "name": "up",
+          "id": "fbe4ae01-b420-48f7-93ff-dea16fe5a85b",
+          "path": "<Keyboard>/w",
+          "interactions": "",
+          "processors": "",
+          "groups": "Keyboard&Mouse",
+          "action": "Move",
+          "isComposite": false,
+          "isPartOfComposite": true
+        },
+        {
+          "name": "down",
+          "id": "0442298d-ca97-4cb5-935d-d8fd6d6542ad",
+          "path": "<Keyboard>/s",
+          "interactions": "",
+          "processors": "",
+          "groups": "Keyboard&Mouse",
+          "action": "Move",
+          "isComposite": false,
+          "isPartOfComposite": true
+        },
+        {
+          "name": "left",
+          "id": "32dfd945-2b24-4161-a5e5-13ff8f362034",
+          "path": "<Keyboard>/a",
+          "interactions": "",
+          "processors": "",
+          "groups": "Keyboard&Mouse",
+          "action": "Move",
+          "isComposite": false,
+          "isPartOfComposite": true
+        },
+        {
+          "name": "right",
+          "id": "fa5e996e-d2a8-483f-bf58-10900624627c",
+          "path": "<Keyboard>/d",
+          "interactions": "",
+          "processors": "",
+          "groups": "Keyboard&Mouse",
+          "action": "Move",
+          "isComposite": false,
+          "isPartOfComposite": true
+        },
+        {
+          "name": "",
+          "id": "4e63fa6c-604b-4cda-9bb2-45c081e85c1a",
+          "path": "<Gamepad>/leftStick",
+          "interactions": "",
+          "processors": "",
+          "groups": "Gamepad",
+          "action": "Move",
+          "isComposite": false,
+          "isPartOfComposite": false
+        },
+        {
+          "name": "",
+          "id": "44277ce7-8f64-4e2e-87be-25fe69ff0d12",
+          "path": "<Mouse>/leftButton",
+          "interactions": "",
+          "processors": "",
+          "groups": "Keyboard&Mouse",
+          "action": "Fire",
+          "isComposite": false,
+          "isPartOfComposite": false
+        },
+        {
+          "name": "",
+          "id": "aa4cfdfe-73c9-42f4-bb77-9e92295f64ca",
+          "path": "<Gamepad>/rightTrigger",
+          "interactions": "",
+          "processors": "",
+          "groups": "Gamepad",
+          "action": "Fire",
+          "isComposite": false,
+          "isPartOfComposite": false
+        },
+        {
+          "name": "",
+          "id": "f6ffb1f0-fff8-4c01-83fa-9acf94bb9740",
+          "path": "<Keyboard>/r",
+          "interactions": "",
+          "processors": "",
+          "groups": "Keyboard&Mouse",
+          "action": "Reload",
+          "isComposite": false,
+          "isPartOfComposite": false
+        },
+        {
+          "name": "",
+          "id": "05249aba-bd80-48c7-a7d1-c8c2df7b0add",
+          "path": "<Gamepad>/buttonWest",
+          "interactions": "",
+          "processors": "",
+          "groups": "Gamepad",
+          "action": "Reload",
+          "isComposite": false,
+          "isPartOfComposite": false
+        }
+      ]
+    }
+  ],
+  "controlSchemes": [
+    {
+      "name": "Keyboard&Mouse",
+      "bindingGroup": "Keyboard&Mouse",
+      "devices": [
+        {
+          "devicePath": "<Keyboard>",
+          "isOptional": false,
+          "isOR": false
+        },
+        {
+          "devicePath": "<Mouse>",
+          "isOptional": false,
+          "isOR": false
+        }
+      ]
+    },
+    {
+      "name": "Gamepad",
+      "bindingGroup": "Gamepad",
+      "devices": [
+        {
+          "devicePath": "<Gamepad>",
+          "isOptional": false,
+          "isOR": false
+        }
+      ]
+    }
+  ]
+}

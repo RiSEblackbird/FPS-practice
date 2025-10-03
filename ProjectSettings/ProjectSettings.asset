@@ -93,6 +93,7 @@ PlayerSettings:
   xboxEnableFitness: 0
   visibleInBackground: 1
   allowFullscreenSwitch: 1
+  activeInputHandler: 2
   graphicsJobMode: 0
   fullscreenMode: 1
   xboxSpeechDB: 0
