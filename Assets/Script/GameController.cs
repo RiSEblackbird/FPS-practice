@@ -1,24 +1,82 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
-    public UnityEngine.UI.Text scoreLabel;
+    public TMP_Text scoreLabel;
     public GameObject Reticle;
     public GameObject winnerLabelObject;
     public GameObject RetryButton;
 
-    public void Update ()
-    {
-        int count = GameObject.FindGameObjectsWithTag ("Enemy").Length;
-        scoreLabel.text = count.ToString ();
+    private int remainingEnemies;
 
-        if (count == 0) {
-            // オブジェクトをアクティブにする
+    private void OnEnable()
+    {
+        DestroyObject.EnemyDestroyed += HandleEnemyDestroyed;
+    }
+
+    private void OnDisable()
+    {
+        DestroyObject.EnemyDestroyed -= HandleEnemyDestroyed;
+    }
+
+    private void Start()
+    {
+        remainingEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        UpdateScoreLabel();
+
+        if (remainingEnemies == 0)
+        {
+            HandleAllEnemiesDefeated();
+        }
+        else
+        {
+            if (winnerLabelObject != null)
+            {
+                winnerLabelObject.SetActive(false);
+            }
+
+            if (Reticle != null)
+            {
+                Reticle.SetActive(true);
+            }
+        }
+    }
+
+    private void HandleEnemyDestroyed(DestroyObject enemy)
+    {
+        if (remainingEnemies > 0)
+        {
+            remainingEnemies--;
+            UpdateScoreLabel();
+
+            if (remainingEnemies == 0)
+            {
+                HandleAllEnemiesDefeated();
+            }
+        }
+    }
+
+    private void UpdateScoreLabel()
+    {
+        if (scoreLabel != null)
+        {
+            scoreLabel.text = remainingEnemies.ToString();
+        }
+    }
+
+    private void HandleAllEnemiesDefeated()
+    {
+        if (winnerLabelObject != null)
+        {
             winnerLabelObject.SetActive(true);
+        }
+
+        if (Reticle != null)
+        {
             Reticle.SetActive(false);
         }
     }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DestroyObject : MonoBehaviour
 {
+    public static event System.Action<DestroyObject> EnemyDestroyed;
+
     public int damage;
     private GameObject tmpenemy;
     private GameObject enemy;
@@ -11,6 +13,7 @@ public class DestroyObject : MonoBehaviour
     public GameObject Particles;
 
     public int hitPoint = 100;
+    private bool isDestroyed;
 
     void Start()
     {
@@ -54,8 +57,12 @@ public class DestroyObject : MonoBehaviour
 
     void Update()
     {
-        if (hitPoint <= 0)
+        if (!isDestroyed && hitPoint <= 0)
         {
+            isDestroyed = true;
+
+            EnemyDestroyed?.Invoke(this);
+
             Destroy(gameObject);
 
             Explosion.SetActive(true);
