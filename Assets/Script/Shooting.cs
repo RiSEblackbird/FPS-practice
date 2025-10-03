@@ -1,6 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Shooting : MonoBehaviour
 {
@@ -12,44 +13,95 @@ public class Shooting : MonoBehaviour
     public Quaternion MFRotation;
     public float shotSpeed;
     public int shotCount = 200;
-    private float shotInterval;
+    [SerializeField] private InputActionReference fireAction;
+    [SerializeField] private InputActionReference reloadAction;
 
-    void Update()
+    private int shotInterval;
+    private bool isFiring;
+
+    private void OnEnable()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (fireAction != null && fireAction.action != null)
+        {
+            fireAction.action.started += OnFireStarted;
+            fireAction.action.canceled += OnFireCanceled;
+            fireAction.action.Enable();
+        }
+
+        if (reloadAction != null && reloadAction.action != null)
+        {
+            reloadAction.action.performed += OnReloadPerformed;
+            reloadAction.action.Enable();
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (fireAction != null && fireAction.action != null)
+        {
+            fireAction.action.started -= OnFireStarted;
+            fireAction.action.canceled -= OnFireCanceled;
+            fireAction.action.Disable();
+        }
+
+        if (reloadAction != null && reloadAction.action != null)
+        {
+            reloadAction.action.performed -= OnReloadPerformed;
+            reloadAction.action.Disable();
+        }
+    }
+
+    private void Update()
+    {
+        if (isFiring)
         {
             shotInterval += 1;
 
             if (shotInterval % 2 == 0 && shotCount > 0)
             {
-                shotCount -= 1;
-
-                Mazzleflash.SetActive(true);
-
-                MF = Instantiate(Mazzleflash, transform.position, transform.rotation);
-                MF.transform.SetParent(gameObject.transform);
-                MF.transform.localScale = MFScale;
-                MF.transform.localRotation = MFRotation;
-
-                GameObject bullet = (GameObject)Instantiate(bulletPrefab, Mazzleflash.transform.position, Mazzleflash.transform.rotation);
-                //bullet.transform.SetParent(gameObject.transform);
-                bullet.transform.localScale = BulletScale;
-                //bullet.transform.localRotation = MFRotation;
-
-                Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-                bulletRb.AddForce(transform.forward * shotSpeed);
-
-                Destroy(bullet, 5.0f);
-                
+                FireBullet();
             }
-
         }
-        else if (Input.GetKeyDown(KeyCode.R))
+        else
         {
-            shotCount = 200;
+            shotInterval = 0;
         }
 
         Mazzleflash.SetActive(false);
+    }
 
+    private void OnFireStarted(InputAction.CallbackContext context)
+    {
+        isFiring = true;
+    }
+
+    private void OnFireCanceled(InputAction.CallbackContext context)
+    {
+        isFiring = false;
+    }
+
+    private void OnReloadPerformed(InputAction.CallbackContext context)
+    {
+        shotCount = 200;
+    }
+
+    private void FireBullet()
+    {
+        shotCount -= 1;
+
+        Mazzleflash.SetActive(true);
+
+        MF = Instantiate(Mazzleflash, transform.position, transform.rotation);
+        MF.transform.SetParent(gameObject.transform);
+        MF.transform.localScale = MFScale;
+        MF.transform.localRotation = MFRotation;
+
+        GameObject bullet = Instantiate(bulletPrefab, Mazzleflash.transform.position, Mazzleflash.transform.rotation);
+        bullet.transform.localScale = BulletScale;
+
+        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+        bulletRb.AddForce(transform.forward * shotSpeed);
+
+        Destroy(bullet, 5.0f);
     }
 }
